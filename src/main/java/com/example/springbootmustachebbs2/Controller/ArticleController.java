@@ -28,7 +28,7 @@ public class ArticleController {
     }
 
     @GetMapping("/list")
-    public String getList(Model model){
+    public String getList(Model model) {
         List<Article> articles = articleRepository.findAll();
 
         model.addAttribute("articles", articles);
@@ -48,6 +48,7 @@ public class ArticleController {
 
         return String.format("redirect:/articles/%d", savedArticle.getId());
     }
+
     @GetMapping("/{id}")
     public String selectSingle(@PathVariable Long id, Model model) {
         Optional<Article> byId = articleRepository.findById(id);
@@ -72,10 +73,16 @@ public class ArticleController {
     }
 
     @PostMapping("/{id}/update")
-    public String update(@PathVariable Long id,ArticleDto articleDto, Model model) {
-        log.info("title:{} content:{}",articleDto.getTitle(),articleDto.getContent());
+    public String update(@PathVariable Long id, ArticleDto articleDto, Model model) {
+        log.info("title:{} content:{}", articleDto.getTitle(), articleDto.getContent());
         Article save = articleRepository.save(articleDto.toEntity());
         model.addAttribute("article", save);
-        return String.format("redirect:/articles/%d",save.getId());
+        return String.format("redirect:/articles/%d", save.getId());
+    }
+
+    @GetMapping("/{id}/delete")
+    public String edit(@PathVariable Long id) {
+        articleRepository.deleteById(id);
+        return "redirect:/articles";
     }
 }
