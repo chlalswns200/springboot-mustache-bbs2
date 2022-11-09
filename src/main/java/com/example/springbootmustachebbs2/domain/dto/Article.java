@@ -1,5 +1,6 @@
 package com.example.springbootmustachebbs2.domain.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -9,6 +10,7 @@ import javax.persistence.*;
 @Table(name = "article2")
 @NoArgsConstructor
 @Getter
+@AllArgsConstructor
 public class Article {
 
     @Id

@@ -1,22 +1,14 @@
 {{>layouts/header}}
-<table class="table table-striped">
-    <thead>
-    <tr>
-        <th scope="col">Id</th>
-        <th scope="col">Title</th>
-        <th scope="col">Content</th>
-    </tr>
-    </thead>
-    <tbody class="table-group-divider">
-    {{#article}}
-        <tr>
-            <th scope="row">{{id}}</th>
-            <th> {{title}}</th>
-            <th>{{content}}</th>
-        </tr>
-    {{/article}}
-    </tbody>
-</table>
-<a href="/articles/new">new article</a>
-<a href="/articles">articles List</a>
+{{#article}}
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">{{title}}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{id}}</h6>
+            <p class="card-text">{{content}}</p>
+            <a href="/articles/new" class="card-link">new article</a>
+            <a href="/articles" class="card-link">list article</a>
+        </div>
+    </div>
+    <a href="/articles/{{id}}/edit" class="btn btn-danger">Edit</a>
+{{/article}}
 {{>layouts/footer}}

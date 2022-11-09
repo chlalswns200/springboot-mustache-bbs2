@@ -22,8 +22,12 @@ public class ArticleController {
         this.articleRepository = articleRepository;
     }
 
+    @GetMapping("")
+    public String index() {
+        return "redirect:/articles/list";
+    }
 
-    @GetMapping(value = "")
+    @GetMapping("/list")
     public String getList(Model model){
         List<Article> articles = articleRepository.findAll();
 
@@ -65,5 +69,13 @@ public class ArticleController {
             model.addAttribute("message", String.format("%d가 없습니다.", id));
             return "error";
         }
+    }
+
+    @PostMapping("/{id}/update")
+    public String update(@PathVariable Long id,ArticleDto articleDto, Model model) {
+        log.info("title:{} content:{}",articleDto.getTitle(),articleDto.getContent());
+        Article save = articleRepository.save(articleDto.toEntity());
+        model.addAttribute("article", save);
+        return String.format("redirect:/articles/%d",save.getId());
     }
 }
